@@ -20,9 +20,6 @@ module.exports = function FruitBasket(pool){
     }
 
     async function totalPrice() {
-        // let totalAmount = price*quantity;
-        // let total =  await pool.query('select * from fruit_basket where fruit_name = &1', [fruit])
-        // return total[0].price; 
         let total = await pool.query('select sum(price*quantity) as price from fruit_basket')
        
         return total.rows[0].price;
