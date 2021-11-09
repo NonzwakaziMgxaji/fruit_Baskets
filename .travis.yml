@@ -7,7 +7,7 @@ env:
 
 before_script:
   - psql -c 'create database  fruits;' -U postgres
-  - psql -U postgres -d fruits_tests -a -f sql/fruitbasket.sql
+  - psql -U postgres -d fruits -a -f sql/fruitbasket.sql
 
 services:
   - postgresql
