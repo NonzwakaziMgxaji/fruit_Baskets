@@ -28,40 +28,40 @@ describe('The fruitbasket function', function () {
 
     it('should update the number of fruits in a given basket Banana', async function () {
         await fruit.createBasket('Banana', 1, '3.00');
-        await fruit.updateFruit('Banana');
+        await fruit.updateFruit('Banana', 3);
         let find = await fruit.findFruit('Banana');
-        assert.equal(find[0].quantity, 2);
+        assert.equal(find[0].quantity, 4);
     });
 
     it('should update the number of fruits in a given basket Strawberry', async function () {
         await fruit.createBasket('Strawberry', 5, '15.00');
-        await fruit.updateFruit('Strawberry');
+        await fruit.updateFruit('Strawberry', 2);
         let find = await fruit.findFruit('Strawberry');
-        assert.equal(find[0].quantity, 6);
+        assert.equal(find[0].quantity, 7);
     });
 
-    it('should show the total price for a given fruit basket', async function () {
-        await fruit.createBasket('Banana', 1, '3.00');
-        await fruit.createBasket('Banana', 1, '3.00');
-        assert.equal(await fruit.totalPrice(), '6.00')
+    it('should show the total price for a given fruit basket Banana', async function () {
+        await fruit.createBasket('Banana', 2, '3.00');
+        assert.equal(await fruit.totalPrice('Banana'), '6.00')
     });
 
-    it('should show the total price for a given fruit basket', async function () {
-        await fruit.createBasket('Apple', 1, '1.50');
-        await fruit.createBasket('Apple', 1, '1.50');
-        assert.equal(await fruit.totalPrice(), '3.00')
+    it('should show the total price for a given fruit basket Apple', async function () {
+        await fruit.createBasket('Apple', 3, '1.50');
+        assert.equal(await fruit.totalPrice('Apple'), '4.50')
     });
 
     it('should show the sum of the total of the fruit baskets for a given fruit type Kiwi', async function () {
         await fruit.createBasket('Kiwi', 1, '5.00');
-        await fruit.createBasket('Kiwi', 1, '5.00');
-        assert.equal(await fruit.totalQty(), 2)
+        await fruit.createBasket('Kiwi', 3, '5.00');
+        await fruit.createBasket('Banana', 6, '5.00');
+
+        assert.equal(20, await fruit.totalQty('Kiwi'))
     });
 
     it('should show the sum of the total of the fruit baskets for a given fruit type Grapes', async function () {
-        await fruit.createBasket('Grapes', 2, '10.00');
-        await fruit.createBasket('Grapes', 1, '10.00');
-        assert.equal(await fruit.totalQty(), 3)
+        await fruit.createBasket('Grapes', 3, '10.00');
+        await fruit.createBasket('Grapes', 5, '10.00');
+        assert.equal(80, await fruit.totalQty('Grapes'))
     });
 
     after(function () {
